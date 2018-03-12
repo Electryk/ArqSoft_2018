@@ -1,3 +1,5 @@
+package redsocial.dominio;
+
 public class Respuesta {
     private String titulo;
     private int votos;
