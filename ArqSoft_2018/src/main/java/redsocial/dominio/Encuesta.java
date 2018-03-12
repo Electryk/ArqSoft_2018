@@ -1,17 +1,27 @@
 package redsocial.dominio;
 
+import org.neo4j.ogm.annotation.Id;
+import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Relationship;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
 
 //TODO: Porcentajes de votos de cada respuesta
+@NodeEntity
 public class Encuesta {
 
+    @Id
     private String identificador;
+
     private String pregunta;
     private String idUsuario;
+
+    @Relationship(type="TIENE_RESPUESTAS")
     private HashMap<Integer,Respuesta> listaRespuestas;
+
     private int votosTotales;
 
     //Constructor encuesta nueva
