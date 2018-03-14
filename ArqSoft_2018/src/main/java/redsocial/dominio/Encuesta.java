@@ -1,12 +1,11 @@
 package redsocial.dominio;
 
+import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.UUID;
+import java.util.*;
 
 
 //TODO: Porcentajes de votos de cada respuesta
@@ -14,39 +13,38 @@ import java.util.UUID;
 public class Encuesta {
 
     @Id
-    private String identificador;
+    @GeneratedValue
+    private Long identificador;
 
     private String pregunta;
-    private String idUsuario;
+    private Long idUsuario;
 
     @Relationship(type="TIENE_RESPUESTAS")
-    private HashMap<Integer,Respuesta> listaRespuestas;
+    private ArrayList<Respuesta> listaRespuestas = new ArrayList<>();
 
     private int votosTotales;
 
     //Constructor encuesta nueva
-    protected Encuesta(String pregunta, String idUsuario, ArrayList<String> respuestas){
+    public Encuesta(String pregunta, Long idUsuario, ArrayList<String> respuestas){
         assert (respuestas.size() <= 10);
-        this.identificador = UUID.randomUUID().toString();
         this.pregunta=pregunta;
         this.idUsuario=idUsuario;
-        int idRespuesta=0;
         for (String nombre:respuestas) {
-            this.listaRespuestas.put(idRespuesta,new Respuesta(nombre));
-            idRespuesta++;
+            this.listaRespuestas.add(new Respuesta(nombre));
         }
         this.votosTotales = 0;
 
     }
 
     //Constructor encuesta existente
-    protected Encuesta(String pregunta, String idUsuario, String identificador, HashMap<Integer,
-            Respuesta> listaRespuestas){
+    public Encuesta(String pregunta, Long idUsuario, Long identificador, ArrayList<Respuesta> listaRespuestas){
         this.identificador = identificador;
         this.pregunta=pregunta;
         this.idUsuario=idUsuario;
         this.listaRespuestas=listaRespuestas;
-        listaRespuestas.forEach((k,v) -> this.votosTotales += v.getVotos());
+        for (Respuesta v: listaRespuestas) {
+            this.votosTotales+=v.getVotos();
+        }
     }
 
     public boolean CrearEncuesta(){
@@ -55,9 +53,10 @@ public class Encuesta {
         return exito;
     }
 
-    public static Encuesta ObtenerEncuesta(String identificador){
-        String pregunta="", idUsuario="";
-        HashMap<Integer,Respuesta> listaRespuestas = new HashMap<>();
+    public static Encuesta ObtenerEncuesta(Long identificador){
+        String pregunta="";
+        Long idUsuario= new Long(0);
+        ArrayList<Respuesta> listaRespuestas = new ArrayList<>();
         //TODO:Uso de la infraestructura para obtener una encuesta existente de la BD
         return new Encuesta(pregunta, idUsuario,identificador, listaRespuestas);
     }
@@ -68,5 +67,15 @@ public class Encuesta {
         //TODO:Actualizar entrada en la BD
         boolean exito=false;
         return exito;
+    }
+
+    @Override
+    public String toString() {
+        return "Encuesta{" +
+                "pregunta='" + pregunta + '\'' +
+                ", idUsuario=" + idUsuario +
+                ", listaRespuestas=" + listaRespuestas +
+                ", votosTotales=" + votosTotales +
+                '}';
     }
 }

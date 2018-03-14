@@ -21,8 +21,8 @@ public class PerfilUsuario {
     private String sexo;
     private int votosRealizados;
 
-//    @Relationship(type = "TIENE_ENCUESTAS")
-//    private ArrayList<Encuesta> encuestas;
+    @Relationship(type = "TIENE_ENCUESTAS")
+    private ArrayList<Encuesta> encuestas = new ArrayList<>();
     //TODO:Imagen de perfil
 
     //Empty constructor requiered by NeoJ4
@@ -36,9 +36,9 @@ public class PerfilUsuario {
         this.pais=pais;
     }
 
-//    public void agregarEncuesta(Encuesta encuesta){
-//        this.encuestas.add(encuesta);
-//    }
+    public void agregarEncuesta(Encuesta encuesta){
+        this.encuestas.add(encuesta);
+    }
 
     @Override
     public String toString() {

@@ -1,9 +1,16 @@
 package redsocial.dominio;
 
+import org.neo4j.ogm.annotation.GeneratedValue;
+import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 
 @NodeEntity
 public class Respuesta {
+
+    @Id
+    @GeneratedValue
+    private Long id;
+
     private String titulo;
     private int votos;
 
@@ -21,5 +28,13 @@ public class Respuesta {
     }
     public void VotaA(){
         this.votos++;
+    }
+
+    @Override
+    public String toString() {
+        return "Respuesta{" +
+                "titulo='" + titulo + '\'' +
+                ", votos=" + votos +
+                '}';
     }
 }
