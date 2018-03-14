@@ -1,11 +1,14 @@
 package redsocial.usuario;
 
-import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
+import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
-import redsocial.dominio.Encuesta;
 
+import redsocial.dominio.Encuesta;
+import redsocial.dominio.Voto;
+
+import java.util.Set;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -19,7 +22,9 @@ public class PerfilUsuario {
     private Date nacimiento;
     private String pais;
     private String sexo;
-    private int votosRealizados;
+    
+   // @Relationship(type = "VOTA")
+   // private Set<Voto> votosRealizados;
 
 //    @Relationship(type = "TIENE_ENCUESTAS")
 //    private ArrayList<Encuesta> encuestas;
@@ -40,6 +45,10 @@ public class PerfilUsuario {
 //        this.encuestas.add(encuesta);
 //    }
 
+    public String getNombre() {
+    	return nombre;
+    }
+    
     @Override
     public String toString() {
         return "PerfilUsuario{" +

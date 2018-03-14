@@ -1,16 +1,13 @@
 package redsocial.infraestructura;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.stereotype.Repository;
 import redsocial.usuario.CuentaUsuario;
 
 @Repository
-public interface CuentaUsuarioRepo extends CrudRepository<CuentaUsuario,Long> {
+public interface CuentaUsuarioRepo extends Neo4jRepository<CuentaUsuario, Long> {
 	
-	CuentaUsuario findByNick(String Nick);
-	Boolean existsByNick(String Nick);
-
-//    CuentaUsuario findByName(String Nick);
-//	Boolean existsByName(String Nick);
+	CuentaUsuario findByNombreUsuario(String nombreUsuario);
+	Boolean existsByNombreUsuario(String nombreUsuario);
 	
 }

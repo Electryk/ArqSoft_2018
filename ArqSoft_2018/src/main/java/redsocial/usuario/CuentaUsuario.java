@@ -1,7 +1,7 @@
 package redsocial.usuario;
 
-import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
+import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
@@ -16,13 +16,8 @@ public class CuentaUsuario {
     @GeneratedValue
 	private Long id;
 
-	private String nick;
-
-    public String getNick() {
-        return nick;
-    }
-
-    private String Pass;
+	private String nombreUsuario;
+    private String contraseña;
 
 	@Relationship(type = "TIENE_PERFIL")
     private PerfilUsuario perfilUsuario;
@@ -36,12 +31,16 @@ public class CuentaUsuario {
 
     }
 
-    public CuentaUsuario(String nick,String pass){
-	    this.nick=nick;
-	    this.Pass=pass;
+    public CuentaUsuario(String nombreUsuario,String contraseña){
+	    this.nombreUsuario=nombreUsuario;
+	    this.contraseña=contraseña;
     }
 
-    public void AsignarPerfil(PerfilUsuario perfilUsuario){
+    public String getNombreUsuario() {
+        return nombreUsuario;
+    }
+
+    public void asignarPerfil(PerfilUsuario perfilUsuario){
 	    this.perfilUsuario=perfilUsuario;
     }
 
@@ -49,8 +48,8 @@ public class CuentaUsuario {
     public String toString() {
         return "CuentaUsuario{" +
                 "id=" + id +
-                ", nick='" + nick + '\'' +
-                ", Pass='" + Pass + '\'' +
+                ", nombreUsuario='" + nombreUsuario + '\'' +
+                ", Contraseña='" + contraseña + '\'' +
                 ", perfilUsuario=" + perfilUsuario +
                 '}';
     }
