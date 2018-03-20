@@ -9,7 +9,7 @@ public class Respuesta {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private long id;
 
     private String titulo;
     private int votos;

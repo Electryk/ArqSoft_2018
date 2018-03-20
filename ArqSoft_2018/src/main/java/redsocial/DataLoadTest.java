@@ -6,13 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import redsocial.dominio.Encuesta;
-import redsocial.dominio.Respuesta;
 import redsocial.infraestructura.CuentaUsuarioRepo;
-import redsocial.infraestructura.EncuestaRepo;
 import redsocial.infraestructura.PerfilRepo;
+import redsocial.usuario.*;
+import redsocial.infraestructura.EncuestaRepo;
 import redsocial.infraestructura.RespuestaRepo;
-import redsocial.usuario.CuentaUsuario;
-import redsocial.usuario.PerfilUsuario;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -43,7 +41,6 @@ public class DataLoadTest implements CommandLineRunner {
 
         log.info("Creando cuenta de usuario y perfil " + testCuenta +" " + testPerfil);
         testCuenta.AsignarPerfil(testPerfil);
-
 //        perfilRepo.save(testPerfil);
         cuentaUsuarioRepo.save(testCuenta);
 
