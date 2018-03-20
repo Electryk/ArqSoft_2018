@@ -4,6 +4,7 @@ import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
+import org.neo4j.ogm.annotation.Index;
 
 @NodeEntity
 public class CuentaUsuario {
@@ -16,8 +17,8 @@ public class CuentaUsuario {
     @GeneratedValue
 	private Long id;
 
-	private String nombreUsuario;
-    private String contraseña;
+    @Index(unique = true) private String nombreUsuario;
+    private String password;
 
 	@Relationship(type = "TIENE_PERFIL")
     private PerfilUsuario perfilUsuario;
@@ -31,9 +32,9 @@ public class CuentaUsuario {
 
     }
 
-    public CuentaUsuario(String nombreUsuario,String contraseña){
+    public CuentaUsuario(String nombreUsuario,String password){
 	    this.nombreUsuario=nombreUsuario;
-	    this.contraseña=contraseña;
+	    this.password=password;
     }
 
     public String getNombreUsuario() {
@@ -49,8 +50,12 @@ public class CuentaUsuario {
         return "CuentaUsuario{" +
                 "id=" + id +
                 ", nombreUsuario='" + nombreUsuario + '\'' +
-                ", Contraseña='" + contraseña + '\'' +
+                ", Contraseña='" + password + '\'' +
                 ", perfilUsuario=" + perfilUsuario +
                 '}';
+    }
+
+    public String getPassword() {
+        return password;
     }
 }

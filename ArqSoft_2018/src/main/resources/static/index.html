@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+    <script type="text/javascript" src="js/cuenta.js"></script>
+    <title>ArqSoft2018</title>
+</head>
+<body class="bg-dark">
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="row pt-5"></div>
+            <div class="container col-6">
+                <div class="card bg-dark mx-auto my-auto">
+                    <div class="card-header bg-primary text-white">
+                        <ul class="nav nav-tabs card-header-tabs" id="accTabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="tabCuenta" data-toggle="tab" href="#cuenta" role="tab"
+                                aria-controls="cuenta" aria-selected="true">
+                                    Crear cuenta usuario
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white bg-dark" id="tabPerfil" data-toggle="tab"
+                                   href="#perfil" role="tab" aria-controls="perfil" aria-selected="false">
+                                    Crear perfil de usuario
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body bg-light">
+                        <div class="tab-pane fade show active" id="cuenta" role="tabpanel" aria-labelledby="tabCuenta">
+                                <form action="" id="postCuenta">
+                                    <div class="form-group">
+                                        <label>Nombre de acceso</label>
+                                        <input class="form-control" type="text" id="nombreUsr"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Contraseña</label>
+                                        <input class="form-control" type="password" id="pass" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Repita contraseña</label>
+                                        <input class="form-control" type="password" />
+                                    </div>
+                                    <div class="row-fluid" id="resCuenta"></div>
+                                    <button type="submit" class="btn btn-primary right float-right">Crear</button>
+                                </form>
+                        </div>
+                        <div class="tab-pane show active" id="perfil" role="tabpanel" aria-labelledby="tabPerfil">
+                            <div class="card-body bg-light"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+</html>
