@@ -26,4 +26,18 @@ public class Voto {
 		this.respuesta = respuesta;
 	}
 	
+	public Voto () {}
+	
+	public PerfilUsuario getPerfilUsuario() {
+		return perfilUsuario;
+	}
+	
+	public Encuesta getEncuesta() {
+		return encuesta;
+	}
+	
+	public int getRespuesta() {
+		return respuesta;
+	}
+	
 }

@@ -23,7 +23,7 @@ public class NuevaCuentaController {
         log.info("He recibido cuenta");
         log.info(nuevaCuenta.getPassword());
         log.info(nuevaCuenta.toString());
-        if(!cuentaUsuarioRepo.findByNombreUsuario(nuevaCuenta.getNombreUsuario()).isEmpty()){
+        if(cuentaUsuarioRepo.findByNombreUsuario(nuevaCuenta.getNombreUsuario()) != null){
             throw new DuplicateKeyException("Nombre en uso");
         }else {
             cuentaUsuarioRepo.save(nuevaCuenta);

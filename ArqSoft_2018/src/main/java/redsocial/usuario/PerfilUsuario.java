@@ -8,7 +8,7 @@ import org.neo4j.ogm.annotation.Relationship;
 import redsocial.dominio.Encuesta;
 import redsocial.dominio.Voto;
 
-import java.util.Set;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -23,30 +23,34 @@ public class PerfilUsuario {
     private String pais;
     private String sexo;
     
-   // @Relationship(type = "VOTA")
-   // private Set<Voto> votosRealizados;
+    @Relationship(type = "VOTA")
+    private List<Voto> votosRealizados = new ArrayList<Voto>();
 
     @Relationship(type = "TIENE_ENCUESTAS")
-    private ArrayList<Encuesta> encuestas = new ArrayList<>();
-    //TODO:Imagen de perfil
-
-    //Empty constructor requiered by NeoJ4
-    public PerfilUsuario() {
-
-    }
+    private List<Encuesta> encuestas = new ArrayList<>();
 
     public PerfilUsuario(String nombre, Date nacimiento, String pais){
-        this.nombre=nombre;
-        this.nacimiento=nacimiento;
-        this.pais=pais;
+        this.nombre = nombre;
+        this.nacimiento = nacimiento;
+        this.pais = pais;
     }
 
-    public void agregarEncuesta(Encuesta encuesta){
+    public PerfilUsuario() {}
+/*
+    public void agregarEncuesta(Encuesta encuesta) {
         this.encuestas.add(encuesta);
     }
-
+*/
     public String getNombre() {
     	return nombre;
+    }
+    
+    public void votar(Encuesta encuesta, int respuesta) {
+    	votosRealizados.add(new Voto(this, encuesta, respuesta));
+    }
+    
+    public List<Encuesta> getEncuestas() {
+    	return encuestas;
     }
     
     @Override
