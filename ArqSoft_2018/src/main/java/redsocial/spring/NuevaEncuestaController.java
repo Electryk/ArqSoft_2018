@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import redsocial.dominio.Encuesta;
 import redsocial.infraestructura.CuentaUsuarioRepo;
+import redsocial.infraestructura.EncuestaRepo;
 import redsocial.usuario.CuentaUsuario;
 import redsocial.usuario.PerfilUsuario;
 
@@ -18,17 +19,23 @@ import java.util.Date;
 
 @RestController
 public class NuevaEncuestaController {
+
     @Autowired
-    private CuentaUsuarioRepo cuentaUsuarioRepo;
+    private EncuestaRepo encuestaRepo;
 
     private static final Logger log = LoggerFactory.getLogger(NuevaEncuestaController.class);
+
     @RequestMapping(value = "/crearEncuesta", method = RequestMethod.POST, consumes = "application/json")
     public void crearNuevaCuenta(@RequestBody PlantillaEncuesta nuevaPlantilla){
         log.info("He recibido encuesta");
         log.info(nuevaPlantilla.pregunta);
         log.info(nuevaPlantilla.respuestas.get(0));
+
         PerfilUsuario defecto  = new PerfilUsuario("TestEncuesta",new Date(),"España");
-        Encuesta nuevaEncuesta = new Encuesta(nuevaPlantilla.pregunta,nuevaPlantilla.respuestas,defecto);
+        Encuesta nuevaEncuesta = new Encuesta(defecto,nuevaPlantilla.pregunta,nuevaPlantilla.respuestas);
+
         log.info(nuevaEncuesta.getPregunta());
+
+        encuestaRepo.save(nuevaEncuesta);
     }
 }

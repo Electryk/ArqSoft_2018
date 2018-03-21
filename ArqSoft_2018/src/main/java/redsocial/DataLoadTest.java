@@ -106,6 +106,7 @@ public class DataLoadTest implements CommandLineRunner {
     				votos.get(v.getRespuesta())+1 :
     				1);
     	}
+//        votos.forEach((m,k)->log.info("Respuesta " + m + ": " + k+ " votos"));
         for (Map.Entry<Integer, Integer> e : votos.entrySet()) {
         	log.info("Respuesta " + e.getKey() + ": " + e.getValue() + " votos");
         }
