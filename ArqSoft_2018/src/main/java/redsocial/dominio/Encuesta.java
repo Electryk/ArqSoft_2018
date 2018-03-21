@@ -9,7 +9,7 @@ import org.neo4j.ogm.annotation.Properties;
 import redsocial.usuario.PerfilUsuario;
 import redsocial.dominio.Voto;
 
-import java.util.Set;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
@@ -29,11 +29,10 @@ public class Encuesta {
 	@Relationship(type = "TIENE_ENCUESTAS", direction = Relationship.INCOMING)
     private PerfilUsuario perfilUsuario;
 
-   // @Relationship(type = "VOTA", direction = Relationship.INCOMING)
-   // private Set<Voto> votos;
+    @Relationship(type = "VOTA", direction = Relationship.INCOMING)
+    private List<Voto> votos = new ArrayList<Voto>();
 
-    //Constructor encuesta nueva
-    public Encuesta(String pregunta, ArrayList<String> respuestas, PerfilUsuario perfilUsuario) {
+    public Encuesta(PerfilUsuario perfilUsuario, String pregunta, ArrayList<String> respuestas) {
         assert (respuestas.size() <= 10);
         
         this.pregunta = pregunta;
@@ -54,6 +53,10 @@ public class Encuesta {
     
     public String getAutor() {
     	return perfilUsuario.getNombre();
+    }
+    
+    public List<Voto> getVotos() {
+    	return votos;
     }
     
 }
