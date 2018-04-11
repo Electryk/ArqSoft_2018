@@ -6,9 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import redsocial.infraestructura.CuentaUsuarioRepo;
-import redsocial.infraestructura.PerfilUsuarioRepo;
-import redsocial.infraestructura.EncuestaRepo;
+import redsocial.usuario.GestionCuenta;
+import redsocial.usuario.GestionPerfil;
 import redsocial.usuario.CuentaUsuario;
 import redsocial.usuario.PerfilUsuario;
 import redsocial.dominio.Encuesta;
@@ -24,44 +23,33 @@ import java.util.List;
 public class DataLoadTest implements CommandLineRunner {
     private final Logger log = LoggerFactory.getLogger(DataLoadTest.class);
 
-    @Autowired
-    private CuentaUsuarioRepo cuentaRepo;
-    @Autowired
-    private PerfilUsuarioRepo perfilRepo;
-    @Autowired
-    private EncuestaRepo encuestaRepo;
-
     @Override
     public void run(String... args) throws Exception {
 
-        cuentaRepo.deleteAll();
-        perfilRepo.deleteAll();
-        encuestaRepo.deleteAll();
+        GestionCuenta.borrarTodo();
+        GestionPerfil.borrarTodo();
 
         CuentaUsuario testCuenta1 = new CuentaUsuario("Ivan","123");
         PerfilUsuario testPerfil1 = new PerfilUsuario("Ivan Escuin",new Date(1995,02,10),"España");
 
         log.info("Creando cuenta de usuario y perfil " + testCuenta1 +" " + testPerfil1);
-        testCuenta1.asignarPerfil(testPerfil1);
-        
-        cuentaRepo.save(testCuenta1);
+        GestionCuenta.crearCuenta(testCuenta1);
+        GestionCuenta.crearPerfil(testCuenta1, testPerfil1);
         
         CuentaUsuario testCuenta2 = new CuentaUsuario("Adrian","321");
         PerfilUsuario testPerfil2 = new PerfilUsuario("Adrian Martinez",new Date(1989,06,01),"España");
 
         log.info("Creando cuenta de usuario y perfil " + testCuenta2 +" " + testPerfil2);
-        testCuenta2.asignarPerfil(testPerfil2);
-        
-        cuentaRepo.save(testCuenta2);
+        GestionCuenta.crearCuenta(testCuenta2);
+        GestionCuenta.crearPerfil(testCuenta2, testPerfil2);
         
         CuentaUsuario testCuenta3 = new CuentaUsuario("Chuck","132");
         PerfilUsuario testPerfil3 = new PerfilUsuario("Chuck Norris",new Date(1977,07,07),"EEUU");
 
         log.info("Creando cuenta de usuario y perfil " + testCuenta3 +" " + testPerfil3);
-        testCuenta3.asignarPerfil(testPerfil3);
-        
-        cuentaRepo.save(testCuenta3);
-
+        GestionCuenta.crearCuenta(testCuenta3);
+        GestionCuenta.crearPerfil(testCuenta3, testPerfil3);
+/*
         log.info("Extracción de cuenta de usuario");
 
         CuentaUsuario testCuentaNeo4j = cuentaRepo.findByNombreUsuario("Ivan");
@@ -110,6 +98,7 @@ public class DataLoadTest implements CommandLineRunner {
         for (Map.Entry<Integer, Integer> e : votos.entrySet()) {
         	log.info("Respuesta " + e.getKey() + ": " + e.getValue() + " votos");
         }
+*/
         
     }
 }
