@@ -36,17 +36,28 @@ public class PerfilUsuario {
     }
 
     public PerfilUsuario() {}
-/*
-    public void agregarEncuesta(Encuesta encuesta) {
-        this.encuestas.add(encuesta);
-    }
-*/
+    
     public String getNombre() {
     	return nombre;
     }
     
-    public void votar(Encuesta encuesta, int respuesta) {
-    	votosRealizados.add(new Voto(this, encuesta, respuesta));
+    public Date getNacimiento() {
+    	return nacimiento;
+    }
+    
+    public String getPais() {
+    	return pais;
+    }
+    
+    public String getSexo() {
+    	return sexo;
+    }
+    
+    public void modificarPerfil(PerfilUsuario nuevoPerfil) {
+    	nombre = nuevoPerfil.getNombre();
+    	nacimiento = nuevoPerfil.getNacimiento();
+    	pais = nuevoPerfil.getPais();
+    	sexo = nuevoPerfil.getSexo();
     }
     
     public List<Encuesta> getEncuestas() {

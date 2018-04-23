@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import redsocial.dominio.Encuesta;
-import redsocial.infraestructura.CuentaUsuarioRepo;
-import redsocial.infraestructura.EncuestaRepo;
+import redsocial.dominio.EncuestaRepo;
 import redsocial.usuario.CuentaUsuario;
+import redsocial.usuario.CuentaUsuarioRepo;
 import redsocial.usuario.PerfilUsuario;
 
 import java.util.Date;
