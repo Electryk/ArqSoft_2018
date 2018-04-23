@@ -2,17 +2,20 @@ package redsocial.usuario;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.stereotype.Component;
 import redsocial.usuario.CuentaUsuarioRepo;
 import redsocial.usuario.CuentaUsuario;
 import redsocial.usuario.PerfilUsuario;
 
 public class GestionCuenta {
 
-    @Autowired
-    private static CuentaUsuarioRepo cuentaUsuarioRepo;
+    public CuentaUsuarioRepo cuentaUsuarioRepo;
 
-    public static boolean crearCuenta(CuentaUsuario cuenta){
-        if (!cuentaUsuarioRepo.existsByNombreUsuario(cuenta.getNombreUsuario())) {
+    public GestionCuenta(CuentaUsuarioRepo cuentaUsuarioRepo){
+        this.cuentaUsuarioRepo=cuentaUsuarioRepo;
+    }
+    public  boolean crearCuenta(CuentaUsuario cuenta){
+        if (cuentaUsuarioRepo.findByNombreUsuario(cuenta.getNombreUsuario())==null) {
         	cuentaUsuarioRepo.save(cuenta);
         	
         	return true;
@@ -21,7 +24,7 @@ public class GestionCuenta {
         return false;
     }
     
-    public static boolean crearPerfil(CuentaUsuario cuenta, PerfilUsuario perfil) {
+    public  boolean crearPerfil(CuentaUsuario cuenta, PerfilUsuario perfil) {
     	CuentaUsuario cuentaBD;
     	
         if (verificarCuenta(cuenta)) {
@@ -33,11 +36,10 @@ public class GestionCuenta {
         return false;
     }
     
-    public static boolean verificarCuenta(CuentaUsuario cuenta) {
+    public  boolean verificarCuenta(CuentaUsuario cuenta) {
     	CuentaUsuario cuentaBD;
     	
-        if (cuentaUsuarioRepo.existsByNombreUsuario(cuenta.getNombreUsuario())) {
-        	cuentaBD = cuentaUsuarioRepo.findByNombreUsuario(cuenta.getNombreUsuario());
+        if ((cuentaBD=cuentaUsuarioRepo.findByNombreUsuario(cuenta.getNombreUsuario()))!=null) {
         	if (cuenta.getPassword().equals(cuentaBD.getPassword())) {
         		return true;
         	}
@@ -48,7 +50,7 @@ public class GestionCuenta {
         return false;
     }
     
-    public static void borrarTodo() {
+    public  void borrarTodo() {
     	cuentaUsuarioRepo.deleteAll();
     }
     

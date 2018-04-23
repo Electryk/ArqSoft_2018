@@ -10,16 +10,18 @@ import redsocial.usuario.PerfilUsuario;
 
 public class GestionPerfil {
 
-    @Autowired
-    private static CuentaUsuarioRepo cuentaUsuarioRepo;
-    @Autowired
-    private static PerfilUsuarioRepo perfilUsuarioRepo;
+    private  CuentaUsuarioRepo cuentaUsuarioRepo;
+    private  PerfilUsuarioRepo perfilUsuarioRepo;
 
-    public static boolean modificarPerfil(CuentaUsuario cuenta, PerfilUsuario perfil) {
+    public GestionPerfil(PerfilUsuarioRepo perfilUsuarioRepo, CuentaUsuarioRepo cuentaUsuarioRepo){
+        this.perfilUsuarioRepo=perfilUsuarioRepo;
+        this.cuentaUsuarioRepo=cuentaUsuarioRepo;
+    }
+    public  boolean modificarPerfil(CuentaUsuario cuenta, PerfilUsuario perfil) {
     	CuentaUsuario cuentaBD;
     	PerfilUsuario perfilBD;
-    	
-        if (GestionCuenta.verificarCuenta(cuenta)) {
+        GestionCuenta gestionCuenta = new GestionCuenta(cuentaUsuarioRepo);
+        if (gestionCuenta.verificarCuenta(cuenta)) {
         	cuentaBD = cuentaUsuarioRepo.findByNombreUsuario(cuenta.getNombreUsuario());
         	perfilBD = cuentaBD.getPerfilUsuario();
         	perfilBD.modificarPerfil(perfil);
@@ -31,7 +33,7 @@ public class GestionPerfil {
         return false;
     }
     
-    public static void borrarTodo() {
+    public void borrarTodo() {
     	perfilUsuarioRepo.deleteAll();
     }
     

@@ -7,11 +7,16 @@ $(document).ready(
                     type : "POST",
                     url : "/crearCuenta",
                     data : JSON.stringify({"nombreUsuario":document.getElementById("nombreUsr").value,
-                                           "password":document.getElementById("pass").value}),
+                                           "password":$.md5(document.getElementById("pass").value)}),
                     contentType : "application/json",
                     success : function() {
-                        $("#resCuenta").html(
-                            "<div class=\"alert alert-success\" role=\"alert\">Cuenta creada</div>");
+                        // $("#crearButton").attr({"type":"",class:"btn btn-success right float-right"});
+                        // $("#crearButton").text("Crear Perfil!")
+                        $("#tabPerfil").removeClass("disabled");
+                        $('a[href="#perfil"]').tab('show');
+                        $("#tabCuenta").addClass("disabled");
+                        $("#resCuentaOK").html(
+                            "<div class=\"alert alert-success\" role=\"alert\">Cuenta creada! Hora de crear un perfil</div>");
                     },
                     error : function(){
                         $("#resCuenta").html(

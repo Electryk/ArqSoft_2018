@@ -4,7 +4,7 @@ import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-interface PerfilUsuarioRepo extends Neo4jRepository<PerfilUsuario, Long> {
+public interface PerfilUsuarioRepo extends Neo4jRepository<PerfilUsuario, Long> {
 	
     PerfilUsuario findByNombre(String nombre);
     

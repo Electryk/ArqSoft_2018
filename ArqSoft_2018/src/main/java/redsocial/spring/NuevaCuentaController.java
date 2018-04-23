@@ -5,11 +5,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DuplicateKeyException;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import redsocial.usuario.CuentaUsuarioRepo;
 import redsocial.usuario.GestionCuenta;
 import redsocial.usuario.CuentaUsuario;
 
@@ -17,15 +17,18 @@ import redsocial.usuario.CuentaUsuario;
 public class NuevaCuentaController {
 
     private static final Logger log = LoggerFactory.getLogger(NuevaCuentaController.class);
+    @Autowired
+    CuentaUsuarioRepo cuentaUsuarioRepo;
     @RequestMapping(value = "/crearCuenta", method = RequestMethod.POST, consumes = "application/json")
-    public void crearNuevaCuenta(@RequestBody CuentaUsuario nuevaCuenta){
+    public ResponseEntity crearNuevaCuenta(@RequestBody CuentaUsuario nuevaCuenta ){
         log.info("He recibido cuenta");
         log.info(nuevaCuenta.getPassword());
         log.info(nuevaCuenta.toString());
-
-        if(!GestionCuenta.crearCuenta(nuevaCuenta)) {
-            throw new DuplicateKeyException("Nombre en uso");
+        GestionCuenta gestionCuenta=new GestionCuenta(cuentaUsuarioRepo);
+        if(!gestionCuenta.crearCuenta(nuevaCuenta)) {
+            return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
         }
         log.info("Cuenta creada");
+        return new ResponseEntity(HttpStatus.OK);
     }
 }
