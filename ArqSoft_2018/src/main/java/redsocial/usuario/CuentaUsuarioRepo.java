@@ -7,6 +7,5 @@ import org.springframework.stereotype.Repository;
 public interface CuentaUsuarioRepo extends Neo4jRepository<CuentaUsuario, Long> {
 	
 	CuentaUsuario findByNombreUsuario(String nombreUsuario);
-	Boolean existsByNombreUsuario(String nombreUsuario);
 	
 }
