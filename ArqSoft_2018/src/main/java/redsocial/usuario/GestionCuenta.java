@@ -1,8 +1,5 @@
 package redsocial.usuario;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import org.springframework.stereotype.Component;
 import redsocial.usuario.CuentaUsuarioRepo;
 import redsocial.usuario.CuentaUsuario;
 import redsocial.usuario.PerfilUsuario;
@@ -12,10 +9,11 @@ public class GestionCuenta {
     public CuentaUsuarioRepo cuentaUsuarioRepo;
 
     public GestionCuenta(CuentaUsuarioRepo cuentaUsuarioRepo){
-        this.cuentaUsuarioRepo=cuentaUsuarioRepo;
+        this.cuentaUsuarioRepo = cuentaUsuarioRepo;
     }
-    public  boolean crearCuenta(CuentaUsuario cuenta){
-        if (cuentaUsuarioRepo.findByNombreUsuario(cuenta.getNombreUsuario())==null) {
+    
+    public boolean crearCuenta(CuentaUsuario cuenta) {
+        if (cuentaUsuarioRepo.findByNombreUsuario(cuenta.getNombreUsuario()) == null) {
         	cuentaUsuarioRepo.save(cuenta);
         	
         	return true;
@@ -24,7 +22,7 @@ public class GestionCuenta {
         return false;
     }
     
-    public  boolean crearPerfil(CuentaUsuario cuenta, PerfilUsuario perfil) {
+    public boolean crearPerfil(CuentaUsuario cuenta, PerfilUsuario perfil) {
     	CuentaUsuario cuentaBD;
     	
         if (verificarCuenta(cuenta)) {
@@ -37,10 +35,10 @@ public class GestionCuenta {
         return false;
     }
     
-    public  boolean verificarCuenta(CuentaUsuario cuenta) {
+    public boolean verificarCuenta(CuentaUsuario cuenta) {
     	CuentaUsuario cuentaBD;
     	
-        if ((cuentaBD=cuentaUsuarioRepo.findByNombreUsuario(cuenta.getNombreUsuario()))!=null) {
+        if ((cuentaBD=cuentaUsuarioRepo.findByNombreUsuario(cuenta.getNombreUsuario())) != null) {
         	if (cuenta.getPassword().equals(cuentaBD.getPassword())) {
         		return true;
         	}
@@ -51,7 +49,7 @@ public class GestionCuenta {
         return false;
     }
     
-    public  void borrarTodo() {
+    public void borrarTodo() {
     	cuentaUsuarioRepo.deleteAll();
     }
     

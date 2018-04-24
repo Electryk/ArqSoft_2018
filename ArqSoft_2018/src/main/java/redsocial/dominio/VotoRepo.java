@@ -8,7 +8,7 @@ import java.util.List;
 import redsocial.dominio.Voto;
 
 @Repository
-interface VotoRepo extends Neo4jRepository<Voto, Long> {
+public interface VotoRepo extends Neo4jRepository<Voto, Long> {
 
     List<Voto> findByPerfilUsuarioNombre(String nombre);
 

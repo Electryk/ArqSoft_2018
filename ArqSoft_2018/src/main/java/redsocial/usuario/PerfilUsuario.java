@@ -29,8 +29,6 @@ public class PerfilUsuario {
     @Relationship(type = "TIENE_ENCUESTAS")
     private List<Encuesta> encuestas = new ArrayList<>();
 
-    public PerfilUsuario() {}
-
     public PerfilUsuario(String nombre, Date nacimiento, String pais){
         this.nombre = nombre;
         this.nacimiento = nacimiento;
@@ -42,6 +40,12 @@ public class PerfilUsuario {
         this.nacimiento = nacimiento;
         this.pais = pais;
         this.sexo = sexo;
+    }
+
+    public PerfilUsuario() {}
+
+    public Long getId() {
+    	return id;
     }
 
     public String getNombre() {
