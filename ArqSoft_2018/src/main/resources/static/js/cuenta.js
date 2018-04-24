@@ -1,5 +1,18 @@
 $(document).ready(
     function(){
+        $('.datepicker').datepicker({
+            language: 'es'
+        });
+        $("#inlineRadio1").click(function() {
+            if(this.checked == true){
+                this.checked = false;
+            }
+        });
+        $("#inlineRadio2").click(function() {
+            if(this.checked == true){
+                this.checked = false;
+            }
+        });
         $("#postCuenta").submit(
             function(event) {
                 event.preventDefault();

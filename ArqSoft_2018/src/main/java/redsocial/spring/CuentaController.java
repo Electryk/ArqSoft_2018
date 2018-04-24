@@ -3,8 +3,6 @@ package redsocial.spring;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,9 +12,9 @@ import redsocial.usuario.GestionCuenta;
 import redsocial.usuario.CuentaUsuario;
 
 @RestController
-public class NuevaCuentaController {
+public class CuentaController {
 
-    private static final Logger log = LoggerFactory.getLogger(NuevaCuentaController.class);
+    private static final Logger log = LoggerFactory.getLogger(CuentaController.class);
     @Autowired
     CuentaUsuarioRepo cuentaUsuarioRepo;
     @RequestMapping(value = "/crearCuenta", method = RequestMethod.POST, consumes = "application/json")
