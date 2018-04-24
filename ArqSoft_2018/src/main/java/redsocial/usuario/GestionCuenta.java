@@ -31,6 +31,7 @@ public class GestionCuenta {
         	cuentaBD = cuentaUsuarioRepo.findByNombreUsuario(cuenta.getNombreUsuario());
         	cuentaBD.asignarPerfil(perfil);
         	cuentaUsuarioRepo.save(cuentaBD);
+        	return true;
         }
         
         return false;

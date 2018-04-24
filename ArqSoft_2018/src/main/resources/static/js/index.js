@@ -9,8 +9,9 @@ $(document).ready(
                     data : {"nombreUsuario":document.getElementById("nombreUsr").value,
                         "password":$.md5(document.getElementById("pass").value)},
                     success : function() {
-                        $("#resCuenta").html(
-                            "<div class=\"alert alert-success\" role=\"alert\">Cuenta creada</div>");
+                        $("#resLogin").html(
+                            "<div class=\"alert alert-success\" role=\"alert\">Login correcto</div>");
+                        window.location.href = "/home.html"
                     },
                     error : function(){
                         $("#resLogin").html(

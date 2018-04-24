@@ -29,14 +29,21 @@ public class PerfilUsuario {
     @Relationship(type = "TIENE_ENCUESTAS")
     private List<Encuesta> encuestas = new ArrayList<>();
 
+    public PerfilUsuario() {}
+
     public PerfilUsuario(String nombre, Date nacimiento, String pais){
         this.nombre = nombre;
         this.nacimiento = nacimiento;
         this.pais = pais;
     }
 
-    public PerfilUsuario() {}
-    
+    public PerfilUsuario(String nombre, Date nacimiento, String pais, String sexo) {
+        this.nombre = nombre;
+        this.nacimiento = nacimiento;
+        this.pais = pais;
+        this.sexo = sexo;
+    }
+
     public String getNombre() {
     	return nombre;
     }
