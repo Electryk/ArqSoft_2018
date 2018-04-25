@@ -22,18 +22,6 @@ public class GestionCuenta {
         return false;
     }
     
-    public boolean crearPerfil(CuentaUsuario cuenta, PerfilUsuario perfil) {
-    	CuentaUsuario cuentaBD;
-    	
-        if (verificarCuenta(cuenta)) {
-        	cuentaBD = cuentaUsuarioRepo.findByNombreUsuario(cuenta.getNombreUsuario());
-        	cuentaBD.asignarPerfil(perfil);
-        	cuentaUsuarioRepo.save(cuentaBD);
-        }
-        
-        return false;
-    }
-    
     public boolean verificarCuenta(CuentaUsuario cuenta) {
     	CuentaUsuario cuentaBD;
     	
