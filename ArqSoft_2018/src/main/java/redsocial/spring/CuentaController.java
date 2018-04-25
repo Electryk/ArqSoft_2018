@@ -31,7 +31,7 @@ public class CuentaController {
     @RequestMapping(value = "login", method = RequestMethod.GET)
     public ResponseEntity login(@RequestParam(value = "nombreUsuario") String nombreUsuario,
                                 @RequestParam(value = "password") String password){
-        GestionCuenta gestionCuenta =  new GestionCuenta(cuentaUsuarioRepo);
+        GestionCuenta gestionCuenta =  new GestionCuenta();
         if(!gestionCuenta.verificarCuenta(new CuentaUsuario(nombreUsuario,password))){
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }

@@ -22,6 +22,10 @@ public class GestionCuenta {
 
         return false;
     }
+
+    public CuentaUsuario obtenerCuenta(String nombre){
+        return cuentaUsuarioRepo.findByNombreUsuario(nombre);
+    }
     
     public boolean verificarCuenta(CuentaUsuario cuenta) {
     	CuentaUsuario cuentaBD;
