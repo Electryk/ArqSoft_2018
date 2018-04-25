@@ -1,30 +1,29 @@
-package redsocial.dominio;
+package redsocial.servicio;
 
-import redsocial.usuario.GestionCuenta;
-import redsocial.usuario.CuentaUsuarioRepo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import redsocial.usuario.CuentaUsuario;
-import redsocial.DataLoadTest;
 import redsocial.dominio.Encuesta;
-import redsocial.dominio.VotoRepo;
 import redsocial.dominio.Voto;
+import redsocial.servicio.CuentaUsuarioRepo;
+import redsocial.servicio.VotoRepo;
+import redsocial.servicio.GestionCuenta;
 
 import java.util.HashMap;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+@Service
 public class GestionVoto {
 
-    public CuentaUsuarioRepo cuentaUsuarioRepo;
-    public VotoRepo votoRepo;
-
-    public GestionVoto(VotoRepo votoRepo, CuentaUsuarioRepo cuentaUsuarioRepo) {
-    	this.votoRepo = votoRepo;
-        this.cuentaUsuarioRepo = cuentaUsuarioRepo;
-    }
+	@Autowired
+    private VotoRepo votoRepo;
+	
+	@Autowired
+	private GestionCuenta gestionCuenta;
     
     public boolean crearVoto(CuentaUsuario cuenta, Voto voto) {
-        GestionCuenta gestionCuenta = new GestionCuenta(cuentaUsuarioRepo);
-        
         if (gestionCuenta.verificarCuenta(cuenta)) {
         	votoRepo.save(voto);
         	

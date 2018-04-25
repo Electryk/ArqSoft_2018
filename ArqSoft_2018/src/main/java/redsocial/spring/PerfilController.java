@@ -5,13 +5,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import redsocial.usuario.CuentaUsuarioRepo;
+
+import redsocial.servicio.GestionPerfil;
 
 @RestController
 public class PerfilController {
 
     @Autowired
-    CuentaUsuarioRepo cuentaUsuarioRepo;
+    private GestionPerfil gestionPerfil;
 
     @RequestMapping(path = "/perfilUsuario",method = RequestMethod.POST)
     public void crearPerfil(@RequestBody PlantillaPerfil nuevoPerfil){

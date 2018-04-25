@@ -7,9 +7,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
 import redsocial.dominio.Encuesta;
-import redsocial.dominio.EncuestaRepo;
 import redsocial.usuario.PerfilUsuario;
+import redsocial.servicio.GestionEncuesta;
 
 import java.util.Date;
 
@@ -18,7 +19,7 @@ import java.util.Date;
 public class EncuestaController {
 
     @Autowired
-    private EncuestaRepo encuestaRepo;
+    private GestionEncuesta gestionEncuesta;
 
     private static final Logger log = LoggerFactory.getLogger(EncuestaController.class);
 
@@ -33,6 +34,6 @@ public class EncuestaController {
 
         log.info(nuevaEncuesta.getPregunta());
 
-        encuestaRepo.save(nuevaEncuesta);
+        //gestionEncuesta.crearEncuesta(cuenta, nuevaEncuesta)
     }
 }
