@@ -1,25 +1,40 @@
-package redsocial.usuario;
+package redsocial.servicio;
 
-import redsocial.usuario.GestionCuenta;
-import redsocial.usuario.CuentaUsuarioRepo;
-import redsocial.usuario.PerfilUsuarioRepo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import redsocial.usuario.CuentaUsuario;
 import redsocial.usuario.PerfilUsuario;
+import redsocial.servicio.CuentaUsuarioRepo;
+import redsocial.servicio.PerfilUsuarioRepo;
+import redsocial.servicio.GestionCuenta;
 
+@Service
 public class GestionPerfil {
 
+	@Autowired
     private CuentaUsuarioRepo cuentaUsuarioRepo;
+	@Autowired
     private PerfilUsuarioRepo perfilUsuarioRepo;
-
-    public GestionPerfil(PerfilUsuarioRepo perfilUsuarioRepo, CuentaUsuarioRepo cuentaUsuarioRepo) {
-        this.perfilUsuarioRepo = perfilUsuarioRepo;
-        this.cuentaUsuarioRepo = cuentaUsuarioRepo;
+	
+	@Autowired
+	private GestionCuenta gestionCuenta;
+	
+    public boolean crearPerfil(CuentaUsuario cuenta, PerfilUsuario perfil) {
+    	CuentaUsuario cuentaBD;
+    	
+        if (gestionCuenta.verificarCuenta(cuenta)) {
+        	cuentaBD = cuentaUsuarioRepo.findByNombreUsuario(cuenta.getNombreUsuario());
+        	cuentaBD.asignarPerfil(perfil);
+        	cuentaUsuarioRepo.save(cuentaBD);
+        }
+        
+        return false;
     }
     
     public  boolean modificarPerfil(CuentaUsuario cuenta, PerfilUsuario perfil) {
     	CuentaUsuario cuentaBD;
     	PerfilUsuario perfilBD;
-        GestionCuenta gestionCuenta = new GestionCuenta(cuentaUsuarioRepo);
         
         if (gestionCuenta.verificarCuenta(cuenta)) {
         	cuentaBD = cuentaUsuarioRepo.findByNombreUsuario(cuenta.getNombreUsuario());

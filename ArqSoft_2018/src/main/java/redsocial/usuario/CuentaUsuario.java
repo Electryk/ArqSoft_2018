@@ -28,11 +28,11 @@ public class CuentaUsuario {
     }
 
     //Empty constructor requiered by NeoJ4
-	public CuentaUsuario(){
+	public CuentaUsuario() {
 
     }
 
-    public CuentaUsuario(String nombreUsuario,String password){
+    public CuentaUsuario(String nombreUsuario,String password) {
 	    this.nombreUsuario=nombreUsuario;
 	    this.password=password;
     }
@@ -41,7 +41,7 @@ public class CuentaUsuario {
         return nombreUsuario;
     }
 
-    public void asignarPerfil(PerfilUsuario perfilUsuario){
+    public void asignarPerfil(PerfilUsuario perfilUsuario) {
 	    this.perfilUsuario=perfilUsuario;
     }
 
