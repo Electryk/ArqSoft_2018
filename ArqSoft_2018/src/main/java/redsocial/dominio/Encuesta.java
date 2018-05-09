@@ -38,7 +38,7 @@ public class Encuesta {
         this.pregunta = pregunta;
         this.perfilUsuario = perfilUsuario;
         this.listaRespuestas = new HashMap<String, String>();
-        int idRespuesta = 1;
+        int idRespuesta = 0;
         for (String nombre:respuestas) {
             this.listaRespuestas.put(Integer.toString(idRespuesta), nombre);
             idRespuesta++;
@@ -54,7 +54,11 @@ public class Encuesta {
     public String getAutor() {
     	return perfilUsuario.getNombre();
     }
-    
+
+    public Map<String, String> getListaRespuestas() {
+        return listaRespuestas;
+    }
+
     public List<Voto> getVotos() {
     	return votos;
     }

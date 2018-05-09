@@ -40,21 +40,21 @@ public class DataLoadTest implements CommandLineRunner {
         gestionEncuesta.borrarTodo();
         gestionVoto.borrarTodo();
 
-        CuentaUsuario testCuenta1 = new CuentaUsuario("Ivan", "123");
-        PerfilUsuario testPerfil1 = new PerfilUsuario("Ivan Escuin", new Date(1995,02,10), "España");
+        CuentaUsuario testCuenta1 = new CuentaUsuario("Ivan", "098f6bcd4621d373cade4e832627b4f6");
+        PerfilUsuario testPerfil1 = new PerfilUsuario("ejemplo", new Date(1995,02,10), "España");
 
         log.info("Creando cuenta de usuario y perfil " + testCuenta1 +" " + testPerfil1);
         gestionCuenta.crearCuenta(testCuenta1);
         gestionPerfil.crearPerfil(testCuenta1, testPerfil1);
 
-        CuentaUsuario testCuenta2 = new CuentaUsuario("Adrian", "321");
+        CuentaUsuario testCuenta2 = new CuentaUsuario("Adrian", "098f6bcd4621d373cade4e832627b4f6");
         PerfilUsuario testPerfil2 = new PerfilUsuario("Adrian Martinez", new Date(1989,06,01), "España");
 
         log.info("Creando cuenta de usuario y perfil " + testCuenta2 +" " + testPerfil2);
         gestionCuenta.crearCuenta(testCuenta2);
         gestionPerfil.crearPerfil(testCuenta2, testPerfil2);
 
-        CuentaUsuario testCuenta3 = new CuentaUsuario("Chuck", "132");
+        CuentaUsuario testCuenta3 = new CuentaUsuario("Chuck", "098f6bcd4621d373cade4e832627b4f6");
         PerfilUsuario testPerfil3 = new PerfilUsuario("Chuck Norris", new Date(1977,07,07), "EEUU");
 
         log.info("Creando cuenta de usuario y perfil " + testCuenta3 +" " + testPerfil3);
@@ -63,7 +63,7 @@ public class DataLoadTest implements CommandLineRunner {
 
         log.info("Verificación de cuenta de usuario (login)");
 
-        CuentaUsuario testCuentaNeo4j = new CuentaUsuario("Ivan", "123");
+        CuentaUsuario testCuentaNeo4j = new CuentaUsuario("Ivan", "098f6bcd4621d373cade4e832627b4f6");
         log.info("login: " + gestionCuenta.verificarCuenta(testCuentaNeo4j));
 
         ArrayList<String> respuestas = new ArrayList<String>();
@@ -84,12 +84,12 @@ public class DataLoadTest implements CommandLineRunner {
 	                + e.getAutor());
     	}
     	
-    	Voto testVoto = new Voto(testPerfil1, testEncuesta, 2);
+    	Voto testVoto = new Voto(testPerfil1, testEncuesta, 1);
     	log.info("Voto 1 creado: " + gestionVoto.crearVoto(testCuenta1, testVoto));
     	log.info("Voto 2 creado: " +
-    			gestionVoto.crearVoto(testCuenta2, new Voto(testPerfil2, testEncuesta, 1)));
+    			gestionVoto.crearVoto(testCuenta2, new Voto(testPerfil2, testEncuesta, 0)));
     	log.info("Voto 3 creado: " +
-    			gestionVoto.crearVoto(testCuenta3, new Voto(testPerfil3, testEncuesta, 1)));
+    			gestionVoto.crearVoto(testCuenta3, new Voto(testPerfil3, testEncuesta, 0)));
 
     	testEncuesta = gestionEncuesta.buscarEncuestaPorPregunta(testEncuesta.getPregunta());
     	SortedMap<Integer, Integer> votos = gestionVoto.obtenerVotosporRespuesta(testEncuesta);

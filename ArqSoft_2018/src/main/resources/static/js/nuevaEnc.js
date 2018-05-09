@@ -24,7 +24,7 @@ $(document).ready(
                     type : "POST",
                     url : "/crearEncuesta",
                     data : JSON.stringify({"pregunta":document.getElementById("pregunta").value,
-                                            "respuestas":respuestas}),
+                                            "respuestas":respuestas,"autor":sessionStorage.getItem("usr")}),
                     contentType : "application/json",
                     success : function() {
                         $("#resEncuesta").html(

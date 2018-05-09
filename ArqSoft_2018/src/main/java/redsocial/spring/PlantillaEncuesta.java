@@ -6,4 +6,5 @@ import java.util.List;
 public class PlantillaEncuesta {
     public String pregunta;
     public ArrayList<String> respuestas;
+    public String autor;
 }

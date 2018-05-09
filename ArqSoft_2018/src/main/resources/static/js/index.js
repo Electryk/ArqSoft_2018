@@ -9,6 +9,7 @@ $(document).ready(
                     data : {"nombreUsuario":document.getElementById("nombreUsr").value,
                         "password":$.md5(document.getElementById("pass").value)},
                     success : function() {
+                        sessionStorage.setItem("usr",$("#nombreUsr").val());
                         $("#resLogin").html(
                             "<div class=\"alert alert-success\" role=\"alert\">Login correcto</div>");
                         window.location.href = "/home.html"

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" style="height: 100%;">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -11,50 +11,35 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous"></script>
-    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src="js/home.js"></script>
+    <script type="text/javascript" src="js/encuesta.js"></script>
     <script type="text/javascript" src="js/jquery.md5.js"></script>
     <title>ArqSoft2018</title>
 </head>
-<body>
-<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+<body style="height: 100%;">
+<div role="main" class="row col-12" style="height: 100%;">
+    <div class="nav column bg-dark nav-pills" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            <li class="nav-item">
+                <h3 id="nombrePerfil" class="text-white"></h3>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+                <a class="nav-link text-white" href="./perfil.html">Mi Perfil</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="http://example.com/" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                <div class="dropdown-menu" aria-labelledby="dropdown01">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                </div>
+                <a class="nav-link text-white" href="./nuevaEncuesta.html">Crear encuesta</a>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" placeholder="Search" aria-label="Search" type="text">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </div>
+    <div class="col-10 my-5">
+        <form class="form-inline justify-content-center" style="width: 100%;">
+            <input placeholder="Busca un perfil o encuesta" aria-label="Busca un perfil o encuesta"
+                   class="form-control mr-sm-2 " style="width: 50%;" type="text">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
         </form>
+        <div id="unaEncuesta" class="mt-4" style="height: 70%;"></div>
     </div>
-</nav>
 
-<div role="main" class="container col-10">
-
-    <div class="col-12 my-5">
-        <h1 class="display-1 text-center">Bootstrap starter template</h1>
-        <p class="lead text-center">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
-    </div>
 
 </div>
 

@@ -27,9 +27,10 @@ public class GestionPerfil {
         	cuentaBD = cuentaUsuarioRepo.findByNombreUsuario(cuenta.getNombreUsuario());
         	cuentaBD.asignarPerfil(perfil);
         	cuentaUsuarioRepo.save(cuentaBD);
-        }
-        
-        return false;
+        	return true;
+        }else {
+			return false;
+		}
     }
     
     public  boolean modificarPerfil(CuentaUsuario cuenta, PerfilUsuario perfil) {

@@ -1,19 +1,19 @@
 package redsocial.spring;
 
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import redsocial.servicio.GestionCuenta;
 import redsocial.servicio.GestionPerfil;
 import redsocial.usuario.CuentaUsuario;
 import redsocial.usuario.PerfilUsuario;
+
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
 public class PerfilController {
@@ -39,7 +39,17 @@ public class PerfilController {
         }else {
             return new ResponseEntity(HttpStatus.FORBIDDEN);
         }
+    }
 
+    @RequestMapping(value = "/perfilUsuario", method = RequestMethod.GET)
+    public PerfilUsuario obtenerPerfil(@RequestParam(value="nombreCuenta") String nombreCuenta, HttpServletResponse response){
 
+        log.info("Peticion de obtencion de perfil recibida");
+        try {
+            return gestionCuenta.obtenerCuenta(nombreCuenta).getPerfilUsuario();
+        }catch (Exception e){
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            return null;
+        }
     }
 }

@@ -16,14 +16,12 @@ $(document).ready(
                                            "password":$.md5(document.getElementById("pass").value)}),
                     contentType : "application/json",
                     success : function() {
-                        // $("#crearButton").attr({"type":"",class:"btn btn-success right float-right"});
-                        // $("#crearButton").text("Crear Perfil!")
                         $("#tabPerfil").removeClass("disabled");
                         $('a[href="#perfil"]').tab('show');
                         $("#tabCuenta").addClass("disabled");
                         $("#resCuentaOK").html(
                             "<div class=\"alert alert-success\" role=\"alert\">Cuenta creada! Hora de crear un perfil</div>");
-                        sessionStorage.setItem("usr",$("#nombreUsr").text());
+                        sessionStorage.setItem("usr",$("#nombreUsr").val());
                     },
                     error : function(){
                         $("#resCuenta").html(
@@ -59,6 +57,9 @@ $(document).ready(
                             "<div class=\"alert alert-success\" role=\"alert\">Perfil creado correctamente</div>" +
                             "<a class='btn btn-primary right float-right' href='../nuevaEncuesta.html'>" +
                             "Crear mi primera encuesta" +
+                            "</a>" +
+                            "<a class='btn btn-secondary right float-left' href='../home.html'>" +
+                            "Más tarde" +
                             "</a>");
                     },
                     error : function() {

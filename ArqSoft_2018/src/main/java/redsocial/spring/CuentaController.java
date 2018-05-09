@@ -16,6 +16,7 @@ public class CuentaController {
     private static final Logger log = LoggerFactory.getLogger(CuentaController.class);
     @Autowired
     private GestionCuenta gestionCuenta;;
+
     @RequestMapping(value = "/crearCuenta", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity crearNuevaCuenta(@RequestBody CuentaUsuario nuevaCuenta ){
         log.info("He recibido cuenta");
@@ -31,7 +32,6 @@ public class CuentaController {
     @RequestMapping(value = "login", method = RequestMethod.GET)
     public ResponseEntity login(@RequestParam(value = "nombreUsuario") String nombreUsuario,
                                 @RequestParam(value = "password") String password){
-        GestionCuenta gestionCuenta =  new GestionCuenta();
         if(!gestionCuenta.verificarCuenta(new CuentaUsuario(nombreUsuario,password))){
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }

@@ -28,17 +28,16 @@ public class GestionCuenta {
     }
     
     public boolean verificarCuenta(CuentaUsuario cuenta) {
-    	CuentaUsuario cuentaBD;
-    	
-        if ((cuentaBD = cuentaUsuarioRepo.findByNombreUsuario(cuenta.getNombreUsuario())) != null) {
-        	if (cuenta.getPassword().equals(cuentaBD.getPassword())) {
-        		return true;
-        	}
-        	
-        	return false;
+        CuentaUsuario cuentaBD=cuentaUsuarioRepo.findByNombreUsuario(cuenta.getNombreUsuario());
+        if (cuentaBD != null) {
+            if (cuenta.getPassword().equals(cuentaBD.getPassword())) {
+                return true;
+            } else {
+                return false;
+            }
+        } else{
+            return false;
         }
-        
-        return false;
     }
     
     public void borrarTodo() {
