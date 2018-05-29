@@ -24,7 +24,7 @@ $(document).ready(
                     type : "GET",
                     url : "/buscarEncuesta",
                     data : {"nombreUsuario":sessionStorage.getItem('nombrePerfil'),
-                            "pregunta":document.getElementById("pregunta").value},
+                            "pregunta":document.getElementById("preguntaBusqueda").value},
                     contentType : "application/json",
                     success : function(res) {
                     	$("#preguntas").empty();
