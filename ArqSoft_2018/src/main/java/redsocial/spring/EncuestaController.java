@@ -68,6 +68,31 @@ public class EncuestaController {
         }
     }
 
+    @RequestMapping(value="/buscarEncuesta", method = RequestMethod.GET)
+    public List<InfoEncuesta> buscarEncuesta(@RequestParam String nombreUsuario,
+    										 @RequestParam String pregunta, HttpServletResponse response) {
+        log.info("He recibido la busqueda");
+        List<Encuesta> resultado = gestionEncuesta.buscarEncuestasPorPreguntaAproximada(pregunta);
+        if (!resultado.isEmpty()) {
+        	List<InfoEncuesta> respuesta = new ArrayList<InfoEncuesta>();
+        	Pair<Boolean,SortedMap<Integer,Integer>> votosObtenidos;
+        	Map votos;
+        	Boolean votada;
+            for (Encuesta e : resultado) {
+            	votosObtenidos = gestionVoto.obtenerVotosporRespuesta(e,nombreUsuario);
+                votos = votosObtenidos.getSecond();
+                votada = votosObtenidos.getFirst();
+                if (!votada) {
+                	respuesta.add(new InfoEncuesta(e,votos,votada));
+                }
+            }
+            return respuesta;
+        }else{
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            return null;
+        }
+    }
+
     @RequestMapping(value = "/encuesta", method = RequestMethod.PUT)
     public void votarRespuesta(@RequestParam String nombreCuenta, @RequestParam String nombreEncuesta,
                                          @RequestParam int nRespuesta){
