@@ -63,7 +63,7 @@ public class PerfilUsuario {
     public String getSexo() {
     	return sexo;
     }
-    
+
     public void modificarPerfil(PerfilUsuario nuevoPerfil) {
     	nombre = nuevoPerfil.getNombre();
     	nacimiento = nuevoPerfil.getNacimiento();
@@ -74,7 +74,11 @@ public class PerfilUsuario {
     public List<Encuesta> getEncuestas() {
     	return encuestas;
     }
-    
+
+    public void setEncuestas(List<Encuesta> encuestas) {
+        this.encuestas = encuestas;
+    }
+
     @Override
     public String toString() {
         return "PerfilUsuario{" +

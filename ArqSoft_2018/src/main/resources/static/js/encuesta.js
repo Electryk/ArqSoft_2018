@@ -1,29 +1,54 @@
-$(document).ready(
-    function(){
+
+    function controlRespuesta(usuarioEncuesta) {
         var nRespuesta;
         var votosRespuesta;
         var votosTotales;
-        $.ajax({
-            type : "GET",
-            url : "/encuesta",
-            data : {"nombreUsuario":sessionStorage.getItem('nombrePerfil'),"usuarioEncuesta":""},
-            success : function(res) {
+        var encuestas;
+        $("#unaEncuesta").load("./encuesta.html");
+        $("#paginacion").pagination({
+            dataSource:function (done) {
+                $.ajax({
+                    type: "GET",
+                    url: "/encuesta",
+                    data: {"nombreUsuario": sessionStorage.getItem('nombrePerfil'), "usuarioEncuesta": usuarioEncuesta},
+                    success: function (res) {
+                        encuestas=res;
+                        done(res);
+                    }
+                });
+            },
+            pageSize: 1,
+            autoHidePrevious: true,
+            autoHideNext: true,
+            beforePageOnClick: function(){
+                $(".votar").remove();
+            },
+            beforeNextOnClick: function(){
+                $(".votar").remove();
+            },
+            beforePreviousOnClick: function(){
+                $(".votar").remove();
+            },
+            callback: function (data,pagination) {
+                //$("#unaEncuesta").load("./encuesta.html");
+                console.log(data);
+                var res = data[0];
                 $("#pregunta").text(res.pregunta);
-                $("#nvotos").text("Total de votos: "+res.votos);
-                votosTotales=res.votos;
-                votosRespuesta=res.votosPorRespuesta;
+                $("#nvotos").text("Total de votos: " + res.votos);
+                votosTotales = res.votos;
+                votosRespuesta = res.votosPorRespuesta;
                 res.respuestas.forEach(
-                    function(item,index){
-                        $("#respuestas").append("<div class='row p-3 mb-2 votar' id="+index+">" +
-                            "<h4 class='col-3'>"+item+"</h4>"+
+                    function (item, index) {
+                        $("#respuestas").append("<div class='row p-3 mb-2 votar' id=" + index + ">" +
+                            "<h4 class='col-3'>" + item + "</h4>" +
                             "<div class='progress col-8' style='height: 30px;'><div class='progress-bar bg-warning text-dark' role='progressbar' " +
-                            "style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax='100'></div></div>"+
+                            "style='width: 0%' aria-valuenow='0' aria-valuemin='0' aria-valuemax='100'></div></div>" +
                             "</div");
                     }
                 );
-                if(res.votada){
-                    mostrarEncuesta(votosRespuesta,votosTotales);
-                }else {
+                if (encuestas[pagination.pageNumber -1].votada) {
+                    mostrarEncuesta(votosRespuesta, votosTotales);
+                } else {
                     $(".votar").hover(function () {
                         $(this).css('cursor', 'pointer');
                         $(this).addClass("bg-secondary");
@@ -43,8 +68,10 @@ $(document).ready(
                             success: function () {
                                 votosTotales++;
                                 votosRespuesta[nRespuesta]++;
+                                encuestas[pagination.pageNumber -1].votada = true;
+                                location.reload();
                                 $("#nvotos").text(votosTotales);
-                                mostrarEncuesta(votosRespuesta,votosTotales);
+                                mostrarEncuesta(votosRespuesta, votosTotales);
 
                             },
                             error: function () {
@@ -53,15 +80,9 @@ $(document).ready(
                         });
                     });
                 }
-            },
-            error : function(){
-                $("#pregunta").html(
-                    "<div class=\"alert alert-danger\" role=\"alert\">"
-                    +"Login incorrecto"
-                    +"</div>");
             }
-        });
-    });
+        })
+    }
 
 function mostrarEncuesta(votosRespuesta,votosTotales) {
     votosRespuesta.forEach(function (item, index) {

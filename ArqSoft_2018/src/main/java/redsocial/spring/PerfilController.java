@@ -9,11 +9,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import redsocial.servicio.GestionCuenta;
+import redsocial.servicio.GestionEncuesta;
 import redsocial.servicio.GestionPerfil;
 import redsocial.usuario.CuentaUsuario;
 import redsocial.usuario.PerfilUsuario;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 
 @RestController
 public class PerfilController {
@@ -23,6 +25,9 @@ public class PerfilController {
 
     @Autowired
     private GestionCuenta gestionCuenta;
+
+    @Autowired
+    private GestionEncuesta gestionEncuesta;
 
     private static final Logger log = LoggerFactory.getLogger(PerfilController.class);
 
@@ -46,7 +51,8 @@ public class PerfilController {
 
         log.info("Peticion de obtencion de perfil recibida");
         try {
-            return gestionCuenta.obtenerCuenta(nombreCuenta).getPerfilUsuario();
+            PerfilUsuario res = gestionCuenta.obtenerCuenta(nombreCuenta).getPerfilUsuario();
+            return res;
         }catch (Exception e){
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             return null;

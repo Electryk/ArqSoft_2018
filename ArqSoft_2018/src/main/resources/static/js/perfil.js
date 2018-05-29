@@ -6,8 +6,8 @@ $(document).ready(
             data : {"nombreCuenta":sessionStorage.getItem("usr")},
             success : function(res) {
                 $("#nombrePerfil").text(res.nombre);
-                sessionStorage.setItem("nombrePerfil",res.nombre);
-                controlRespuesta("");
+                $("#nombre").text(res.nombre);
+                controlRespuesta(res.nombre);
             },
             error : function(){
                 $("#nombrePerfil").html(
@@ -16,4 +16,14 @@ $(document).ready(
                     +"</div>");
             }
         });
+        // $("#paginacion").pagination({
+        //     dataSource:[1,2,3,4,5,6,7,8],
+        //     pageSize: 1,
+        //     autoHidePrevious: true,
+        //     autoHideNext: true,
+        //     callback: function (data,pagination) {
+        //         var html = simpleTemplating(data);
+        //         $('#encuestas').html(html);
+        //     }
+        // });
     });
