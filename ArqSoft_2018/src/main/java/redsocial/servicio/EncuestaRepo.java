@@ -13,4 +13,5 @@ interface EncuestaRepo extends Neo4jRepository<Encuesta, Long> {
     Encuesta findByPregunta(String pregunta);
     List<Encuesta> findByPreguntaContaining(String pregunta);
     List<Encuesta> findByPerfilUsuarioNombreContaining(String nombre);
+    List<Encuesta> findByPerfilUsuarioNombre(String nombre);
 }

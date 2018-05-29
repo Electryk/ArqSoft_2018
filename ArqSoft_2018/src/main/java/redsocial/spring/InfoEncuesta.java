@@ -11,15 +11,17 @@ public class InfoEncuesta {
     private List<String> respuestas;
     private List<Integer> votosPorRespuesta;
     private int votos=0;
+    private boolean votada;
 
     public InfoEncuesta(){
         pregunta="def";
         respuestas=new ArrayList<>();
         votosPorRespuesta=new ArrayList<>();
         votos=0;
+        votada=false;
     }
 
-    public InfoEncuesta(Encuesta encuesta,Map<Integer,Integer> votos){
+    public InfoEncuesta(Encuesta encuesta,Map<Integer,Integer> votos,boolean votada){
         this.pregunta=encuesta.getPregunta();
         this.respuestas= new ArrayList<String>();
         votosPorRespuesta=new ArrayList<>();
@@ -28,6 +30,7 @@ public class InfoEncuesta {
             votosPorRespuesta.add(k,v);
             this.votos=this.votos+v;
         });
+        this.votada = votada;
         }
 
     public String getPregunta() {
@@ -45,4 +48,6 @@ public class InfoEncuesta {
     public List<Integer> getVotosPorRespuesta() {
         return votosPorRespuesta;
     }
+
+    public Boolean getVotada() {return votada;}
 }

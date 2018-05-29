@@ -1,6 +1,7 @@
 package redsocial.servicio;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
 import redsocial.usuario.CuentaUsuario;
@@ -33,15 +34,19 @@ public class GestionVoto {
         return false;
     }
     
-    public SortedMap<Integer, Integer> obtenerVotosporRespuesta(Encuesta encuesta) {
+    public Pair<Boolean,SortedMap<Integer, Integer>> obtenerVotosporRespuesta(Encuesta encuesta, String cliente) {
     	TreeMap<Integer, Integer> votos = new TreeMap<Integer,Integer>();
+    	Boolean votada = false;
     	for (Voto v : encuesta.getVotos()) {
     		votos.put(v.getRespuesta(), votos.containsKey(v.getRespuesta()) ?
     				votos.get(v.getRespuesta())+1 :
     				1);
+    		if(v.getPerfilUsuario().getNombre().equals(cliente)){
+    		    votada = true;
+            }
     	}
     	
-    	return votos;
+    	return Pair.of(votada,votos);
     }
     
     public void borrarTodo() {

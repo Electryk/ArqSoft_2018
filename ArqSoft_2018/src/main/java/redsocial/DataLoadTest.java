@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Component;
 
 import redsocial.usuario.*;
@@ -92,8 +93,8 @@ public class DataLoadTest implements CommandLineRunner {
     			gestionVoto.crearVoto(testCuenta3, new Voto(testPerfil3, testEncuesta, 0)));
 
     	testEncuesta = gestionEncuesta.buscarEncuestaPorPregunta(testEncuesta.getPregunta());
-    	SortedMap<Integer, Integer> votos = gestionVoto.obtenerVotosporRespuesta(testEncuesta);
-    	votos.forEach((m,k)->log.info("Respuesta " + m + ": " + k+ " votos"));
+    	Pair<Boolean,SortedMap<Integer, Integer>> votos = gestionVoto.obtenerVotosporRespuesta(testEncuesta,"");
+    	votos.getSecond().forEach((m,k)->log.info("Respuesta " + m + ": " + k+ " votos"));
     }
     
 }

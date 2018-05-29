@@ -7,6 +7,7 @@ $(document).ready(
             data : {"nombreCuenta":sessionStorage.getItem("usr")},
             success : function(res) {
                 $("#nombrePerfil").text(res.nombre);
+                sessionStorage.setItem("nombrePerfil",res.nombre);
             },
             error : function(){
                 $("#nombrePerfil").html(

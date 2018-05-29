@@ -6,10 +6,10 @@ $(document).ready(
         $.ajax({
             type : "GET",
             url : "/encuesta",
-            data : {"nombreUsuario":""},
+            data : {"nombreUsuario":sessionStorage.getItem('nombrePerfil'),"usuarioEncuesta":""},
             success : function(res) {
                 $("#pregunta").text(res.pregunta);
-                $("#nvotos").text(res.votos);
+                $("#nvotos").text("Total de votos: "+res.votos);
                 votosTotales=res.votos;
                 votosRespuesta=res.votosPorRespuesta;
                 res.respuestas.forEach(
@@ -21,38 +21,38 @@ $(document).ready(
                             "</div");
                     }
                 );
-                $(".votar").hover(function() {
-                    $(this).css('cursor','pointer');
-                    $(this).addClass("bg-secondary");
-                }, function() {
-                    $(this).css('cursor','auto');
-                    $(this).removeClass("bg-secondary");
-                });
-                $(".votar").on("click",function () {
-                    nRespuesta=$(this).attr("id");
-                    $.ajax({
-                        type : "PUT",
-                        url: "/encuesta",
-                        data :{"nombreCuenta":sessionStorage.getItem("usr"),"nombreEncuesta":$("#pregunta").text(),
-                            "nRespuesta":$(this).attr("id")},
-                        success : function () {
-                            votosTotales++;
-                            votosRespuesta[nRespuesta]++;
-                            $("#nvotos").text(votosTotales);
-                            votosRespuesta.forEach(function (item, index) {
-                                var fill=(item/votosTotales)*100;
-                                $("#"+index+" .progress-bar").attr("aria-valuenow",fill);
-                                $("#"+index+" .progress-bar").css("width", fill+"%");
-                                $("#"+index+" .progress-bar").text(item+" votos");
-                            });
-                            $(".votar").off("click");
-                            $(".votar").off("hover");
-                        },
-                        error: function() {
-                            alert("Error al votar");
-                        }
+                if(res.votada){
+                    mostrarEncuesta(votosRespuesta,votosTotales);
+                }else {
+                    $(".votar").hover(function () {
+                        $(this).css('cursor', 'pointer');
+                        $(this).addClass("bg-secondary");
+                    }, function () {
+                        $(this).css('cursor', 'auto');
+                        $(this).removeClass("bg-secondary");
                     });
-                });
+                    $(".votar").on("click", function () {
+                        nRespuesta = $(this).attr("id");
+                        $.ajax({
+                            type: "PUT",
+                            url: "/encuesta",
+                            data: {
+                                "nombreCuenta": sessionStorage.getItem("usr"), "nombreEncuesta": $("#pregunta").text(),
+                                "nRespuesta": $(this).attr("id")
+                            },
+                            success: function () {
+                                votosTotales++;
+                                votosRespuesta[nRespuesta]++;
+                                $("#nvotos").text(votosTotales);
+                                mostrarEncuesta(votosRespuesta,votosTotales);
+
+                            },
+                            error: function () {
+                                alert("Error al votar");
+                            }
+                        });
+                    });
+                }
             },
             error : function(){
                 $("#pregunta").html(
@@ -62,3 +62,14 @@ $(document).ready(
             }
         });
     });
+
+function mostrarEncuesta(votosRespuesta,votosTotales) {
+    votosRespuesta.forEach(function (item, index) {
+        var fill=(item/votosTotales)*100;
+        $("#"+index+" .progress-bar").attr("aria-valuenow",fill)
+        .css("width", fill+"%")
+        .text(item+" votos");
+    });
+    $(".votar").off("click");
+    $(".votar").off("hover");
+}

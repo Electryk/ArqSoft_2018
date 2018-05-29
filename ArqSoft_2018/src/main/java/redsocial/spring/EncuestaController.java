@@ -3,6 +3,7 @@ package redsocial.spring;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.Pair;
 import org.springframework.web.bind.annotation.*;
 
 import redsocial.dominio.Encuesta;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedMap;
 
 
 @RestController
@@ -50,12 +52,16 @@ public class EncuestaController {
     }
 
     @RequestMapping(value="/encuesta", method = RequestMethod.GET)
-    public InfoEncuesta obtenerEncuesta(@RequestParam String nombreUsuario, HttpServletResponse response) {
-        List<Encuesta> resultado = gestionEncuesta.buscarEncuestasPorPerfilUsuarioAproximado(nombreUsuario);
+    public InfoEncuesta obtenerEncuesta(@RequestParam String nombreUsuario,@RequestParam(required = false) String usuarioEncuesta,
+                                        HttpServletResponse response) {
+        List<Encuesta> resultado = gestionEncuesta.buscarEncuestasPorPerfilUsuarioAproximado(usuarioEncuesta);
         if (!resultado.isEmpty()) {
             Encuesta e = resultado.get(0);
-            Map votos=gestionVoto.obtenerVotosporRespuesta(e);
-            return new InfoEncuesta(e,votos);
+            Pair<Boolean,SortedMap<Integer,Integer>> votosObtenidos = gestionVoto.obtenerVotosporRespuesta(e,nombreUsuario);
+            Map votos= votosObtenidos.getSecond();
+            Boolean votada = votosObtenidos.getFirst();
+            log.info(votada.toString());
+            return new InfoEncuesta(e,votos,votada);
         }else{
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return null;
