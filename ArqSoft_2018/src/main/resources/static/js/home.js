@@ -1,6 +1,5 @@
 $(document).ready(
     function(){
-        $("#unaEncuesta").load("./encuesta.html");
     	$("#busquedaEncuesta").load("./busquedaEncuesta.html").hide();
         $.ajax({
             type : "GET",
