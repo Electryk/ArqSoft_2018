@@ -47,7 +47,7 @@ $(document).ready(
                         });
                         $(".mostrar").on("click", function () {
                             sessionStorage.setItem("perfilClickado",$(this).attr("id"));
-                            window.location.href = "./perfilExterno.html";
+                            window.location.href = "./perfilAjeno.html";
                         });
                     },
                     error : function(){

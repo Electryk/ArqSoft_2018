@@ -48,10 +48,6 @@ public class GestionVoto {
     	
     	return Pair.of(votada,votos);
     }
-
-    public int votosDePerfil(String nombrePerfil){
-    	return votoRepo.findByPerfilUsuarioNombre(nombrePerfil).size();
-	}
     
     public void borrarTodo() {
     	votoRepo.deleteAll();

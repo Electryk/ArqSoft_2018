@@ -26,9 +26,6 @@ public class GestionEncuesta {
     public List<Encuesta> buscarEncuestasPorPreguntaAproximada(String pregunta) {
         return encuestaRepo.findByPreguntaContainingOrPreguntaIsLike(pregunta,pregunta);
     }
-    public List<Encuesta> buscarEncuestasPorPerfilusuario(String nombre){
-        return encuestaRepo.findByPerfilUsuarioNombre(nombre);
-    }
     public List<Encuesta> buscarEncuestasPorPerfilUsuarioAproximado(String nombre) {
         return encuestaRepo.findByPerfilUsuarioNombreContaining(nombre);
     }
