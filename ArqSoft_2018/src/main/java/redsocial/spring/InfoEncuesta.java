@@ -24,8 +24,11 @@ public class InfoEncuesta {
     public InfoEncuesta(Encuesta encuesta,Map<Integer,Integer> votos,boolean votada){
         this.pregunta=encuesta.getPregunta();
         this.respuestas= new ArrayList<String>();
-        votosPorRespuesta=new ArrayList<>();
-        encuesta.getListaRespuestas().forEach((k,v)-> respuestas.add(Integer.parseInt(k),v));
+        this.votosPorRespuesta=new ArrayList<Integer>();
+        encuesta.getListaRespuestas().forEach((k,v)-> {
+            respuestas.add(Integer.parseInt(k),v);
+            votosPorRespuesta.add(Integer.parseInt(k),0);
+        });
         votos.forEach((k,v) -> {
             votosPorRespuesta.add(k,v);
             this.votos=this.votos+v;

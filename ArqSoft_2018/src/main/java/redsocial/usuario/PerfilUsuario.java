@@ -7,7 +7,11 @@ import org.neo4j.ogm.annotation.Relationship;
 
 import redsocial.dominio.Encuesta;
 import redsocial.dominio.Voto;
+import redsocial.spring.InfoPerfil;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,7 +26,7 @@ public class PerfilUsuario {
     private Date nacimiento;
     private String pais;
     private String sexo;
-    
+
     @Relationship(type = "VOTA")
     private List<Voto> votosRealizados = new ArrayList<Voto>();
 
@@ -63,18 +67,29 @@ public class PerfilUsuario {
     public String getSexo() {
     	return sexo;
     }
-    
-    public void modificarPerfil(PerfilUsuario nuevoPerfil) {
+
+    public void modificarPerfil(InfoPerfil nuevoPerfil) {
     	nombre = nuevoPerfil.getNombre();
-    	nacimiento = nuevoPerfil.getNacimiento();
-    	pais = nuevoPerfil.getPais();
+        DateFormat df = new SimpleDateFormat("DD-MM-YYYY");
+        try {
+            if(nuevoPerfil.getNacimiento()!=null) {
+                nacimiento = df.parse(nuevoPerfil.getNacimiento());
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        pais = nuevoPerfil.getPais();
     	sexo = nuevoPerfil.getSexo();
     }
     
     public List<Encuesta> getEncuestas() {
     	return encuestas;
     }
-    
+
+    public void setEncuestas(List<Encuesta> encuestas) {
+        this.encuestas = encuestas;
+    }
+
     @Override
     public String toString() {
         return "PerfilUsuario{" +

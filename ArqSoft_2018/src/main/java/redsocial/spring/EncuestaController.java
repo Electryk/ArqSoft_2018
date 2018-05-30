@@ -16,11 +16,7 @@ import redsocial.usuario.PerfilUsuario;
 import redsocial.servicio.GestionEncuesta;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.Date;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.SortedMap;
+import java.util.*;
 
 
 @RestController
@@ -53,22 +49,25 @@ public class EncuestaController {
     }
 
     @RequestMapping(value="/encuesta", method = RequestMethod.GET)
-    public InfoEncuesta obtenerEncuesta(@RequestParam String nombreUsuario,@RequestParam(required = false) String pregunta,
+    public List<InfoEncuesta> obtenerEncuesta(@RequestParam String nombreUsuario,@RequestParam(required = false) String usuarioEncuesta,
                                         HttpServletResponse response) {
-        List<Encuesta> resultado = gestionEncuesta.buscarEncuestasPorPreguntaAproximada(pregunta);
+        List<Encuesta> resultado = gestionEncuesta.buscarEncuestasPorPerfilUsuarioAproximado(usuarioEncuesta);
         if (!resultado.isEmpty()) {
-            Encuesta e = resultado.get(0);
-            Pair<Boolean,SortedMap<Integer,Integer>> votosObtenidos = gestionVoto.obtenerVotosporRespuesta(e,nombreUsuario);
-            Map votos= votosObtenidos.getSecond();
-            Boolean votada = votosObtenidos.getFirst();
-            log.info(votada.toString());
-            return new InfoEncuesta(e,votos,votada);
+            List<InfoEncuesta> infoQueSeDevuelve = new ArrayList<>();
+            for(Encuesta e: resultado) {
+                Pair<Boolean, SortedMap<Integer, Integer>> votosObtenidos = gestionVoto.obtenerVotosporRespuesta(e, nombreUsuario);
+                Map votos = votosObtenidos.getSecond();
+                Boolean votada = votosObtenidos.getFirst();
+                log.info(votada.toString());
+                infoQueSeDevuelve.add(new InfoEncuesta(e,votos,votada));
+            }
+            return infoQueSeDevuelve;
         }else{
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return null;
         }
     }
-    
+
     @RequestMapping(value="/buscarEncuesta", method = RequestMethod.GET)
     public List<InfoEncuesta> buscarEncuesta(@RequestParam String nombreUsuario,
     										 @RequestParam String pregunta, HttpServletResponse response) {

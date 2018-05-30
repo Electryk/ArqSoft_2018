@@ -11,7 +11,6 @@ import java.util.List;
 interface EncuestaRepo extends Neo4jRepository<Encuesta, Long> {
 
     Encuesta findByPregunta(String pregunta);
-    List<Encuesta> findByPreguntaContaining(String pregunta);
+    List<Encuesta> findByPreguntaContainingOrPreguntaIsLike(String pregunta1,String pregunta2);
     List<Encuesta> findByPerfilUsuarioNombreContaining(String nombre);
-    List<Encuesta> findByPerfilUsuarioNombre(String nombre);
 }

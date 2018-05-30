@@ -1,6 +1,5 @@
 $(document).ready(
     function(){
-        $("#unaEncuesta").load("./encuesta.html");
     	$("#busquedaEncuesta").load("./busquedaEncuesta.html").hide();
         $.ajax({
             type : "GET",
@@ -9,6 +8,7 @@ $(document).ready(
             success : function(res) {
                 $("#nombrePerfil").text(res.nombre);
                 sessionStorage.setItem("nombrePerfil",res.nombre);
+                controlRespuesta("");
             },
             error : function(){
                 $("#nombrePerfil").html(
@@ -20,23 +20,24 @@ $(document).ready(
         $("#buscar").submit(
             function(event) {
                 event.preventDefault();
+                controlRespuesta("",$('#pregunta').val());
                 $.ajax({
                     type : "GET",
-                    url : "/buscarEncuesta",
+                    url : "/buscarPerfilUsuario",
                     data : {"nombreUsuario":sessionStorage.getItem('nombrePerfil'),
                             "pregunta":document.getElementById("preguntaBusqueda").value},
                     contentType : "application/json",
                     success : function(res) {
-                    	$("#preguntas").empty();
-                    	res.forEach(
+                        $("#perfiles").empty();
+                        res.forEach(
                             function(item,index) {
-                                $("#preguntas").append("<div class='row p-3 mb-2 mostrar' id="+item.pregunta+">" +
-                                    "<h4 class='col-3'>"+item.pregunta+"</h4>" +
+                                $("#perfiles").append("<div class='row p-3 mb-2 mostrar' id="+item.id+">" +
+                                    "<h3class='col-3'>"+item.nombre+"</h3>" +
                                     "</div");
                             });
-                        $("#unaEncuesta").toggle();
+                        //$("#unaEncuesta").toggle();
                         $("#busquedaEncuesta").toggle();
-                        
+
                         $(".mostrar").hover(function () {
                             $(this).css('cursor', 'pointer');
                             $(this).addClass("bg-secondary");
@@ -45,11 +46,8 @@ $(document).ready(
                             $(this).removeClass("bg-secondary");
                         });
                         $(".mostrar").on("click", function () {
-                            $("#unaEncuesta").toggle();
-                            $("#busquedaEncuesta").toggle();
-                            
-                            encuesta($(this).attr("id"));
-                            
+                            sessionStorage.setItem("perfilClickado",$(this).attr("id"));
+                            window.location.href = "./perfilAjeno.html";
                         });
                     },
                     error : function(){
