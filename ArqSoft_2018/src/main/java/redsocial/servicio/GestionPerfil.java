@@ -3,11 +3,15 @@ package redsocial.servicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import redsocial.dominio.Voto;
+import redsocial.spring.InfoPerfil;
 import redsocial.usuario.CuentaUsuario;
 import redsocial.usuario.PerfilUsuario;
 import redsocial.servicio.CuentaUsuarioRepo;
 import redsocial.servicio.PerfilUsuarioRepo;
 import redsocial.servicio.GestionCuenta;
+
+import java.util.List;
 
 @Service
 public class GestionPerfil {
@@ -33,21 +37,27 @@ public class GestionPerfil {
 		}
     }
     
-    public  boolean modificarPerfil(CuentaUsuario cuenta, PerfilUsuario perfil) {
+    public  boolean modificarPerfil(Long id, InfoPerfil perfil, CuentaUsuario cuenta) {
     	CuentaUsuario cuentaBD;
     	PerfilUsuario perfilBD;
         
         if (gestionCuenta.verificarCuenta(cuenta)) {
-        	cuentaBD = cuentaUsuarioRepo.findByNombreUsuario(cuenta.getNombreUsuario());
-        	perfilBD = cuentaBD.getPerfilUsuario();
+        	perfilBD = perfilUsuarioRepo.findById(id).get();
         	perfilBD.modificarPerfil(perfil);
         	perfilUsuarioRepo.save(perfilBD);
-        	
         	return true;
         }
         
         return false;
     }
+
+    public List<PerfilUsuario> buscarPerfilNombre(String nombre){
+    	return perfilUsuarioRepo.findByNombreContainingOrNombreIsLike(nombre,nombre);
+	}
+
+	public PerfilUsuario obtenerPerfil(Long id){
+    	return perfilUsuarioRepo.findById(id).get();
+	}
     
     public void borrarTodo() {
     	perfilUsuarioRepo.deleteAll();

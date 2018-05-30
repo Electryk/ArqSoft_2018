@@ -24,7 +24,7 @@
             integrity="sha256-L3S3EDEk31HcLA5C6T2ovHvOcD80+fgqaCDt2BAi92o=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.2/pagination.css" />
 
-    <script type="text/javascript" src="js/perfil.js"></script>
+    <script type="text/javascript" src="js/perfilExterno.js"></script>
     <script type="text/javascript" src="js/jquery.md5.js"></script>
     <script type="text/javascript" src="js/pagination.min.js"></script>
     <script type="text/javascript" src="js/encuesta.js"></script>
@@ -53,22 +53,22 @@
     <div class="col-10 my-5">
         <div class="row-fluid" id="resCuentaOK"></div>
         <div class="card-body bg-light">
-            <form action="" id="putPerfil">
+            <form action="" id="postPerfil">
                 <div class="form-group">
                     <label>Nombre público</label>
-                    <input class="form-control" type="text" id="nombre" required/>
+                    <p class="form-control" type="text" id="nombre"></p>
                 </div>
                 <div class="form-row">
                     <div class="form-group date col-md-3">
                         <label>Fecha de nacimiento</label>
-                        <input type="text" class="form-control datepicker" data-provide="datepicker" data-date-format="dd/mm/yyyy" id="calendario" required>
+                        <p id="calendario"></p>
                         <div class="input-group-addon">
                             <span class="glyphicon glyphicon-th"></span>
                         </div>
                     </div>
                     <div class="form-group col-md-3">
                         <label>País</label>
-                        <select class="custom-select" id="pais">
+                        <select class="custom-select" id="pais" disabled>
                             <option value="españa"selected>España</option>
                             <option value="francia">Francia</option>
                             <option value="portugal">Portugal</option>
@@ -79,16 +79,14 @@
                 <div class="form-group col-md-5">
                     <label>Sexo</label>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="sexoF" value="F">
+                        <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="sexoF" value="F" disabled>
                         <label class="form-check-label" for="sexoF">Mujer</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="sexoM" value="M">
+                        <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="sexoM" value="M" disabled>
                         <label class="form-check-label" for="sexoM">Hombre</label>
                     </div>
                 </div>
-                <div class="row-fluid" id="resPerfil"></div>
-                <button type="submit" id ="btnPerfil"class="btn btn-primary right float-right">Modificar Perfil</button>
             </form>
         </div>
         <div class="row-fluid">

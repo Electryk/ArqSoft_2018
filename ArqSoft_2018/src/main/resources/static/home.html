@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.2/pagination.css" />
     <script type="text/javascript" src="js/home.js"></script>
     <script type="text/javascript" src="js/encuesta.js"></script>
+    <script type="text/javascript" src="js/perfilExterno.js"></script>
     <script type="text/javascript" src="js/jquery.md5.js"></script>
     <script type="text/javascript" src="js/pagination.min.js"></script>
     <title>ArqSoft2018</title>
@@ -24,6 +25,9 @@
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
                 <h3 id="nombrePerfil" class="text-white"></h3>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="./home.html">Home</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-white" href="./perfil.html">Mi Perfil</a>
@@ -39,8 +43,8 @@
                    class="form-control mr-sm-2 " style="width: 50%;" type="text" id="pregunta">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
         </form>
-        <div id="catalogo">
-            <div id="unaEncuesta" class="mt-4" style="height: 70%;"></div>
+        <div class="row-fluid" id="catalogo">
+            <div id="unaEncuesta" class="list-group"></div>
             <div id="paginacion"></div>
         </div>
         <div id="busquedaEncuesta" class="mt-4" style="height: 70%;"></div>

@@ -1,5 +1,5 @@
 
-    function controlRespuesta(usuarioEncuesta) {
+    function controlRespuesta(usuarioEncuesta,busqueda) {
         var nRespuesta;
         var votosRespuesta;
         var votosTotales;
@@ -7,15 +7,33 @@
         $("#unaEncuesta").load("./encuesta.html");
         $("#paginacion").pagination({
             dataSource:function (done) {
-                $.ajax({
-                    type: "GET",
-                    url: "/encuesta",
-                    data: {"nombreUsuario": sessionStorage.getItem('nombrePerfil'), "usuarioEncuesta": usuarioEncuesta},
-                    success: function (res) {
-                        encuestas=res;
-                        done(res);
-                    }
-                });
+                if(busqueda){
+                    $.ajax({
+                        type: "GET",
+                        url: "/buscarEncuesta",
+                        data: {
+                            "nombreUsuario": sessionStorage.getItem('nombrePerfil'),
+                            "pregunta": busqueda
+                        },
+                        success: function (res) {
+                            encuestas = res;
+                            done(res);
+                        }
+                    });
+                }else {
+                    $.ajax({
+                        type: "GET",
+                        url: "/encuesta",
+                        data: {
+                            "nombreUsuario": sessionStorage.getItem('nombrePerfil'),
+                            "usuarioEncuesta": usuarioEncuesta
+                        },
+                        success: function (res) {
+                            encuestas = res;
+                            done(res);
+                        }
+                    });
+                }
             },
             pageSize: 1,
             autoHidePrevious: true,
@@ -33,7 +51,7 @@
                 //$("#unaEncuesta").load("./encuesta.html");
                 console.log(data);
                 var res = data[0];
-                $("#pregunta").text(res.pregunta);
+                $("#titulo").text(res.pregunta);
                 $("#nvotos").text("Total de votos: " + res.votos);
                 votosTotales = res.votos;
                 votosRespuesta = res.votosPorRespuesta;
@@ -62,7 +80,7 @@
                             type: "PUT",
                             url: "/encuesta",
                             data: {
-                                "nombreCuenta": sessionStorage.getItem("usr"), "nombreEncuesta": $("#pregunta").text(),
+                                "nombreCuenta": sessionStorage.getItem("usr"), "nombreEncuesta": $("#titulo").text(),
                                 "nRespuesta": $(this).attr("id")
                             },
                             success: function () {
